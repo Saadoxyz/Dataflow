@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataFlow AI - Transform Your Data Into Insights</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #06b6d4;
+            --accent-color: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --border-color: #374151;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--bg-primary);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 4rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-primary);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
+        }
+
+        .pricing-card.featured::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .features, .testimonials, .pricing, .cta-section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-chart-line"></i> DataFlow AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Transform Your Data Into Actionable Insights</h1>
+                    <p>Harness the power of AI to analyze, visualize, and understand your data like never before. Make data-driven decisions with confidence.</p>
+                    <div class="cta-buttons">
+                        <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+                        <a href="#features" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <div class="section-header loading">
+                    <h2>Powerful Features</h2>
+                    <p>Everything you need to turn raw data into meaningful insights that drive your business forward.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card loading">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>AI-Powered Analytics</h3>
+                        <p>Our advanced machine learning algorithms automatically detect patterns, anomalies, and trends in your data, providing insights you might have missed.</p>
+                    </div>
+                    <div class="feature-card loading">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>Interactive Dashboards</h3>
+                        <p>Create stunning, interactive dashboards with drag-and-drop simplicity. Customize visualizations to match your brand and preferences.</p>
+                    </div>
+                    <div class="feature-card loading">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Real-Time Processing</h3>
+                        <p>Process and analyze data in real-time with our high-performance infrastructure. Get instant insights as your data updates.</p>
+                    </div>
+                    <div class="feature-card loading">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Enterprise Security</h3>
+                        <p>Your data is protected with bank-level security, including end-to-end encryption, SSO integration, and compliance with major standards.</p>
+                    </div>
+                    <div class="feature-card loading">
+                        <div class="feature-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>Easy Integration</h3>
+                        <p>Connect to over 100+ data sources including databases, APIs, cloud services, and files. Set up automated data pipelines in minutes.</p>
+                    </div>
+                    <div class="feature-card loading">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Team Collaboration</h3>
+                        <p>Share insights, collaborate on reports, and maintain version control. Built-in commenting and approval workflows for team efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <div class="section-header loading">
+                    <h2>What Our Customers Say</h2>
+                    <p>Join thousands of companies that trust DataFlow AI to power their data-driven decisions.</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card loading">
+                        <p class="testimonial-text">DataFlow AI transformed how we analyze customer behavior. We've increased our conversion rates by 40% using their predictive analytics features.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SM</div>
+                            <div class="author-info">
+                                <h4>Sarah Miller</h4>
+                                <p>VP of Marketing, TechCorp</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card loading">
+                        <p class="testimonial-text">The real-time dashboards are incredible. We can now monitor our operations 24/7 and make instant decisions when issues arise. It's a game-changer.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MJ</div>
+                            <div class="author-info">
+                                <h4>Michael Johnson</h4>
+                                <p>Operations Director, LogiFlow</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card loading">
+                        <p class="testimonial-text">Setting up was surprisingly easy. Within a week, we had all our data sources connected and were generating insights that helped us save $200K annually.</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">ER</div>
+                            <div class="author-info">
+                                <h4>Emily Rodriguez</h4>
+                                <p>CFO, StartupX</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <div class="section-header loading">
+                    <h2>Choose Your Plan</h2>
+                    <p>Start free and scale as you grow. All plans include our core features with varying limits and advanced capabilities.</p>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card loading">
+                        <h3>Starter</h3>
+                        <div class="price">$0</div>
+                        <div class="price-period">per month</div>
+                        <ul class="features-list">
+                            <li>Up to 5 data sources</li>
+                            <li>Basic visualizations</li>
+                            <li>1 dashboard</li>
+                            <li>Email support</li>
+                            <li>Community access</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">Get Started</a>
+                    </div>
+                    <div class="pricing-card featured loading">
+                        <h3>Professional</h3>
+                        <div class="price">$49</div>
+                        <div class="price-period">per month</div>
+                        <ul class="features-list">
+                            <li>Unlimited data sources</li>
+                            <li>Advanced AI analytics</li>
+                            <li>10 dashboards</li>
+                            <li>Priority support</li>
+                            <li>Real-time alerts</li>
+                            <li>API access</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary">Start Free Trial</a>
+                    </div>
+                    <div class="pricing-card loading">
+                        <h3>Enterprise</h3>
+                        <div class="price">$199</div>
+                        <div class="price-period">per month</div>
+                        <ul class="features-list">
+                            <li>Everything in Professional</li>
+                            <li>Custom integrations</li>
+                            <li>Unlimited dashboards</li>
+                            <li>24/7 phone support</li>
+                            <li>Advanced security</li>
+                            <li>Dedicated account manager</li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Transform Your Data?</h2>
+                <p>Join thousands of companies already using DataFlow AI to make smarter, faster decisions. Start your free trial today.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Start Free Trial</a>
+                    <a href="#" class="btn btn-secondary">Schedule Demo</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">API Documentation</a>
+                    <a href="#">Integrations</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact Support</a>
+                    <a href="#">System Status</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">GDPR</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DataFlow AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        
+        if (currentTheme === 'dark') {
+            themeIcon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        // Smooth scrolling for navigation links
+        const navLinks = document.querySelectorAll('a[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = targetSection.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for loading animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all loading elements
+        document.querySelectorAll('.loading').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu functionality (basic implementation)
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinksContainer = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            const isVisible = navLinksContainer.style.display === 'flex';
+            navLinksContainer.style.display = isVisible ? 'none' : 'flex';
+            navLinksContainer.style.flexDirection = 'column';
+            navLinksContainer.style.position = 'absolute';
+            navLinksContainer.style.top = '100%';
+            navLinksContainer.style.left = '0';
+            navLinksContainer.style.right = '0';
+            navLinksContainer.style.background = 'var(--bg-primary)';
+            navLinksContainer.style.padding = '1rem';
+            navLinksContainer.style.boxShadow = 'var(--shadow)';
+            navLinksContainer.style.borderTop = '1px solid var(--border-color)';
+        });
+
+        // Form submission handlers for CTAs
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            if (btn.textContent.includes('Start Free Trial')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('🚀 Thank you for your interest! In a real application, this would redirect to our signup form.');
+                });
+            }
+        });
+
+        document.querySelectorAll('.btn-secondary').forEach(btn => {
+            if (btn.textContent.includes('Learn More')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector('#features').scrollIntoView({ behavior: 'smooth' });
+                });
+            } else if (btn.textContent.includes('Schedule Demo')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('📅 Thank you for your interest! In a real application, this would open our scheduling widget.');
+                });
+            } else if (btn.textContent.includes('Contact Sales')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('💼 Thank you for your interest! Our sales team would contact you within 24 hours.');
+                });
+            }
+        });
+
+        // Add hover effects for feature cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click effects for pricing cards
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // Remove active class from all cards
+                document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('active'));
+                // Add active class to clicked card
+                card.classList.add('active');
+            });
+        });
+
+        // Typing animation for hero title
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                heroTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        };
+        
+        // Start typing animation after page load
+        setTimeout(typeWriter, 1000);
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add counter animation for pricing
+        const animateCounter = (element, target, duration = 2000) => {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                element.textContent = Math.floor(start);
+                
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                }
+            }, 16);
+        };
+
+        // Observe pricing section for counter animation
+        const pricingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const prices = entry.target.querySelectorAll('.price');
+                    prices.forEach(price => {
+                        const value = parseInt(price.textContent.replace(',', ''));
+                        if (value > 0) {
+                            price.textContent = '$0';
+                            animateCounter(price, value);
+                        }
+                    });
+                    pricingObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const pricingSection = document.querySelector('.pricing');
+        if (pricingSection) {
+            pricingObserver.observe(pricingSection);
+        }
+    </script>
+
+    <style>
+        /* Additional mobile styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none !important;
+            }
+            
+            .nav-links.mobile-open {
+                display: flex !important;
+            }
+        }
+
+        /* Active pricing card style */
+        .pricing-card.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Enhanced hover effects */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Loading spinner for buttons */
+        .btn.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Pulse animation for featured pricing card */
+        .pricing-card.featured {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+    </style>
+</body>
+</html>
